@@ -11,6 +11,12 @@ pip install bytewax-clickhouse
 
 ## Usage
 
+Before running any workload, you will need to start ClickHouse if you are not already running it.
+
+```bash
+docker compose up -d
+```
+
 ClickHouse Sink requires a PyArrow table, Schema and keys for order and partition.
 
 The Sink is eventually consistent based on the keys.

@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Optional, List
 from typing_extensions import override
 import logging
 
@@ -11,7 +11,13 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
     
 class _ClickHousePartition(StatelessSinkPartition):
-    def __init__(self, table_name, host, port, username, password, database):
+    def __init__(self, 
+                 table_name: str, 
+                 host: str, 
+                 port: int, 
+                 username: str, 
+                 password: str, 
+                 database: str):
         self.table_name = table_name
         self.host = host
         self.port = port
@@ -23,11 +29,19 @@ class _ClickHousePartition(StatelessSinkPartition):
     @override
     def write_batch(self, batch: List[Table]) -> None:
         arrow_table = concat_tables(batch)
-        self.client.insert_arrow(f"{self.database}.{self.table_name}", arrow_table)
+        self.client.insert_arrow(f"{self.database}.{self.table_name}", arrow_table, settings={"buffer_size":0})
 
 
-class ClickhouseSink(DynamicSink):
-    def __init__(self, table_name, username, password, host="localhost", port=8123, database=None, schema=None, order_by=''):
+class ClickHouseSink(DynamicSink):
+    def __init__(self, 
+                 table_name: str, 
+                 username: str, 
+                 password: str, 
+                 host: str = "localhost", 
+                 port: int = 8123, 
+                 database: Optional[str] = None, 
+                 schema: Optional[str] = None, 
+                 order_by: str = ''):
         self.table_name = table_name
         self.host = host
         self.port = port
@@ -59,10 +73,11 @@ class ClickhouseSink(DynamicSink):
                 client.command(create_table_query)
                 logger.info(f"Table '{table_name}' created successfully.")
             else:
-                raise("""Can't complete execution without schema of format
+                msg = """Bad Schema. Can't complete execution without schema of format
                         column1 UInt32,
                         column2 String,
-                        column3 Date""")
+                        column3 Date"""
+                raise ValueError(msg)
         else:
             logger.info(f"Table '{self.table_name}' exists.")
 
@@ -89,9 +104,8 @@ class ClickhouseSink(DynamicSink):
         
         client.close()
 
-    @override
     def build(
-        self, _step_id: str, _worker_index: int, _worker_count: int
+        self, step_id: str, worker_index: int, worker_count: int
     ) -> _ClickHousePartition:
         return _ClickHousePartition(self.table_name, self.host, self.port, self.username, self.password, self.database)
  
