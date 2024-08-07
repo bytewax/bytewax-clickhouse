@@ -87,8 +87,10 @@ class ClickHouseSink(DynamicSink):
         table_exists_query = f"EXISTS {self.database}.{self.table_name}"
         table_exists = client.command(table_exists_query)
         if not table_exists:
-            logger.info(f"""Table '{self.table_name}' does not exist.
-                        Attempting to create with provided schema""")
+            logger.info(
+                f"""Table '{self.table_name}' does not exist.
+                        Attempting to create with provided schema"""
+            )
             if schema:
                 # Create the table with ReplacingMergeTree
                 create_table_query = f"""
