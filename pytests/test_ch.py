@@ -5,7 +5,7 @@ from bytewax.connectors.demo import RandomMetricSource
 from bytewax.dataflow import Dataflow
 import pyarrow as pa
 
-from clickhouse_connector import ClickhouseSink
+from src.bytewax.clickhouse_connector import ClickhouseSink
 
 CH_SCHEMA = """
         metric String,
