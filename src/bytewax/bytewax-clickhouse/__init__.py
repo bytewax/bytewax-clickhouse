@@ -1,22 +1,28 @@
-from typing import Optional, List
+from typing import Optional, List, TypeVar
 from typing_extensions import override
 import logging
-
 from bytewax.outputs import StatelessSinkPartition, DynamicSink
 from pyarrow import concat_tables, Table
 from clickhouse_connect import get_client
 
+
+K = TypeVar("K")
+"""Type of key in Kafka message."""
+
+V = TypeVar("V")
+"""Type of value in a Kafka message."""
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-    
+
 class _ClickHousePartition(StatelessSinkPartition):
-    def __init__(self, 
-                 table_name: str, 
-                 host: str, 
-                 port: int, 
-                 username: str, 
-                 password: str, 
+    def __init__(self,
+                 table_name: str,
+                 host: str,
+                 port: int,
+                 username: str,
+                 password: str,
                  database: str):
         self.table_name = table_name
         self.host = host
@@ -24,23 +30,27 @@ class _ClickHousePartition(StatelessSinkPartition):
         self.username = username
         self.password = password
         self.database = database
-        self.client = get_client(host=self.host, port=self.port, username=self.username, password=self.password, database=self.database)
-    
+        self.client = get_client(host=self.host,
+                                 port=self.port,
+                                 username=self.username,
+                                 password=self.password, database=self.database)
+
     @override
     def write_batch(self, batch: List[Table]) -> None:
         arrow_table = concat_tables(batch)
-        self.client.insert_arrow(f"{self.database}.{self.table_name}", arrow_table, settings={"buffer_size":0})
+        self.client.insert_arrow(f"{self.database}.{self.table_name}",
+                                 arrow_table, settings={"buffer_size":0})
 
 
 class ClickHouseSink(DynamicSink):
-    def __init__(self, 
-                 table_name: str, 
-                 username: str, 
-                 password: str, 
-                 host: str = "localhost", 
-                 port: int = 8123, 
-                 database: Optional[str] = None, 
-                 schema: Optional[str] = None, 
+    def __init__(self,
+                 table_name: str,
+                 username: str,
+                 password: str,
+                 host: str = "localhost",
+                 port: int = 8123,
+                 database: Optional[str] = None,
+                 schema: Optional[str] = None,
                  order_by: str = ''):
         self.table_name = table_name
         self.host = host
@@ -54,13 +64,15 @@ class ClickHouseSink(DynamicSink):
         if not self.database:
             logger.warning("database not set, using 'default'")
             self.database = 'default'
-        client = get_client(host=self.host, port=self.port, username=self.username, password=self.password, database=self.database)
+        client = get_client(host=self.host, port=self.port,
+                            username=self.username, password=self.password,
+                            database=self.database)
         
         # Check if the table exists
         table_exists_query = f"EXISTS {self.database}.{self.table_name}"
         table_exists = client.command(table_exists_query)
         if not table_exists:
-            logger.info(f"""Table '{self.table_name}' does not exist. 
+            logger.info(f"""Table '{self.table_name}' does not exist.
                         Attempting to create with provided schema""")
             if schema:
                 # Create the table with ReplacingMergeTree
@@ -82,14 +94,16 @@ class ClickHouseSink(DynamicSink):
             logger.info(f"Table '{self.table_name}' exists.")
 
             # Check the MergeTree type
-            mergetree_type_query = f"SELECT engine FROM system.tables WHERE database = '{self.database}' AND name = '{self.table_name}'"
+            mergetree_type_query = f"""SELECT engine FROM system.tables
+                    WHERE database = '{self.database}' AND name = '{self.table_name}'"""
             mergetree_type = client.command(mergetree_type_query)
             logger.info(f"MergeTree type of the table '{table_name}': {mergetree_type}")
 
             if "ReplacingMergeTree" not in mergetree_type:
-                logger.warning(f"""Table '{table_name}' is not using ReplacingMergeTree. 
-                               Consider modifying the table to avoid performance degredation 
-                               and/or duplicates on restart""")
+                logger.warning(
+                    f"""Table '{table_name}' is not using ReplacingMergeTree.
+                    Consider modifying the table to avoid performance degredation
+                    and/or duplicates on restart""")
 
             # Get the table schema
             schema_query = f"""
@@ -101,11 +115,14 @@ class ClickHouseSink(DynamicSink):
             logger.info(f"Schema of the table '{self.table_name}':")
             for column in columns:
                 logger.info(f"Column: {column[0]}, Type: {column[1]}")
-        
+
         client.close()
 
     def build(
         self, step_id: str, worker_index: int, worker_count: int
     ) -> _ClickHousePartition:
-        return _ClickHousePartition(self.table_name, self.host, self.port, self.username, self.password, self.database)
- 
+        return _ClickHousePartition(self.table_name,
+                                    self.host, self.port,
+                                    self.username, self.password,
+                                    self.database)
+

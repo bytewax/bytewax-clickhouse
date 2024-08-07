@@ -1,1 +1,0 @@
-"""ClickHouse Connector for Bytewax"""

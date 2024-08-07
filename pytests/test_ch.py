@@ -5,7 +5,7 @@ from bytewax.connectors.demo import RandomMetricSource
 from bytewax.dataflow import Dataflow
 import pyarrow as pa
 
-from src.bytewax.clickhouse_connector import ClickhouseSink
+from bytewax.connectors.clickhouse import operators as chop
 
 CH_SCHEMA = """
         metric String,
@@ -22,18 +22,6 @@ PA_SCHEMA = pa.schema([
         ])
 
 
-def construct_table(key__batch, pa_schema):
-    key, batch = key__batch
-    columns = list(zip(*batch))
-    arrays = []
-    for i, f in enumerate(pa_schema):
-        array = pa.array(columns[i], f.type)
-        arrays.append(array)
-    t = pa.Table.from_arrays(arrays, schema=pa_schema)
-
-    return t
-
-
 flow = Dataflow("test_ch")
 
 # Build a sample stream of metrics
@@ -43,15 +31,7 @@ metricc = op.input("inp_c", flow, RandomMetricSource("c_metric"))
 metrics = op.merge("merge", metrica, metricb, metricc)
 metrics = op.map("add_time", metrics, lambda x: x + tuple([datetime.now()]))
 metrics = op.map("add_key", metrics, lambda x: ("All", x))
-# op.inspect("metrics", metrics)
+op.inspect("metrics", metrics)
 
-batched_stream = op.collect(
-    "batch_records", metrics, max_size=50, timeout=timedelta(seconds=5)
-)
-tables = op.map(
-    "arrow_table",
-    batched_stream,
-    lambda batch: construct_table(batch, PA_SCHEMA)
-)
-op.inspect("message_stat_strings", tables)
-op.output("output_clickhouse", tables, ClickhouseSink("metrics", "admin", "password", database="bytewax", port=8123, schema=CH_SCHEMA, order_by=ORDER_BY))
+
+chop.output("output_clickhouse", metrics, "metrics", "admin", "password", database="bytewax", port=8123, schema=CH_SCHEMA, order_by=ORDER_BY, pa_schema=PA_SCHEMA)
