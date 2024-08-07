@@ -16,42 +16,53 @@ V = TypeVar("V")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 class _ClickHousePartition(StatelessSinkPartition):
-    def __init__(self,
-                 table_name: str,
-                 host: str,
-                 port: int,
-                 username: str,
-                 password: str,
-                 database: str):
+    def __init__(
+        self,
+        table_name: str,
+        host: str,
+        port: int,
+        username: str,
+        password: str,
+        database: str,
+    ):
         self.table_name = table_name
         self.host = host
         self.port = port
         self.username = username
         self.password = password
         self.database = database
-        self.client = get_client(host=self.host,
-                                 port=self.port,
-                                 username=self.username,
-                                 password=self.password, database=self.database)
+        self.client = get_client(
+            host=self.host,
+            port=self.port,
+            username=self.username,
+            password=self.password,
+            database=self.database,
+        )
 
     @override
     def write_batch(self, batch: List[Table]) -> None:
         arrow_table = concat_tables(batch)
-        self.client.insert_arrow(f"{self.database}.{self.table_name}",
-                                 arrow_table, settings={"buffer_size":0})
+        self.client.insert_arrow(
+            f"{self.database}.{self.table_name}",
+            arrow_table,
+            settings={"buffer_size": 0},
+        )
 
 
 class ClickHouseSink(DynamicSink):
-    def __init__(self,
-                 table_name: str,
-                 username: str,
-                 password: str,
-                 host: str = "localhost",
-                 port: int = 8123,
-                 database: Optional[str] = None,
-                 schema: Optional[str] = None,
-                 order_by: str = ''):
+    def __init__(
+        self,
+        table_name: str,
+        username: str,
+        password: str,
+        host: str = "localhost",
+        port: int = 8123,
+        database: Optional[str] = None,
+        schema: Optional[str] = None,
+        order_by: str = "",
+    ):
         self.table_name = table_name
         self.host = host
         self.port = port
@@ -63,11 +74,15 @@ class ClickHouseSink(DynamicSink):
         # init client
         if not self.database:
             logger.warning("database not set, using 'default'")
-            self.database = 'default'
-        client = get_client(host=self.host, port=self.port,
-                            username=self.username, password=self.password,
-                            database=self.database)
-        
+            self.database = "default"
+        client = get_client(
+            host=self.host,
+            port=self.port,
+            username=self.username,
+            password=self.password,
+            database=self.database,
+        )
+
         # Check if the table exists
         table_exists_query = f"EXISTS {self.database}.{self.table_name}"
         table_exists = client.command(table_exists_query)
@@ -103,7 +118,8 @@ class ClickHouseSink(DynamicSink):
                 logger.warning(
                     f"""Table '{table_name}' is not using ReplacingMergeTree.
                     Consider modifying the table to avoid performance degredation
-                    and/or duplicates on restart""")
+                    and/or duplicates on restart"""
+                )
 
             # Get the table schema
             schema_query = f"""
@@ -121,8 +137,11 @@ class ClickHouseSink(DynamicSink):
     def build(
         self, step_id: str, worker_index: int, worker_count: int
     ) -> _ClickHousePartition:
-        return _ClickHousePartition(self.table_name,
-                                    self.host, self.port,
-                                    self.username, self.password,
-                                    self.database)
-
+        return _ClickHousePartition(
+            self.table_name,
+            self.host,
+            self.port,
+            self.username,
+            self.password,
+            self.database,
+        )

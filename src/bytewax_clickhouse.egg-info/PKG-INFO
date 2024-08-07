@@ -1,3 +1,27 @@
+Metadata-Version: 2.1
+Name: bytewax-clickhouse
+Version: 0.0.1
+Summary: Clickhouse sink connector for bytewax
+Author-email: "Bytewax, Inc." <info@bytewax.io>
+Project-URL: Homepage, https://github.com/bytewax/bytewax-clickhouse
+Project-URL: Bug Reports, https://github.com/bytewax/bytewax-clickhouse/issues/new
+Project-URL: Source, https://github.com/bytewax/bytewax-clickhouse/
+Keywords: bytewax,streaming,operator
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: clickhouse-connect==0.7.16
+Requires-Dist: bytewax>=0.21
+Requires-Dist: pyarrow==16.1.0
+
 [![Actions Status](https://github.com/bytewax/bytewax-clickhouse/workflows/CI/badge.svg)](https://github.com/bytewax/bytewax-clickhouse/actions)
 [![PyPI](https://img.shields.io/pypi/v/bytewax-clickhouse.svg?style=flat-square)](https://pypi.org/project/bytewax-clickhouse/)
 [![Bytewax User Guide](https://img.shields.io/badge/user-guide-brightgreen?style=flat-square)](https://docs.bytewax.io/stable/guide/index.html)
@@ -30,12 +54,6 @@ ClickHouse Sink requires a PyArrow table, Schema and keys for order and partitio
 
 The Sink is eventually consistent based on the keys.
 
-Add the import
-
-```python
-from bytewax.clickhouse import operators as chop
-```
-
 Add A schema and order by string to your code.
 
 ```python
@@ -51,32 +69,17 @@ ORDER_BY = "metric, ts"
 define a pyarrow schema
 
 ```python
-PA_SCHEMA = pa.schema(
-    [
-        ("metric", pa.string()),
-        ("value", pa.float64()),
-        ("ts", pa.timestamp("us")),  # microsecond
-    ]
-)
+PA_SCHEMA = pa.schema([
+            ('metric',pa.string()),
+            ('value',pa.float64()),
+            ('ts',pa.timestamp('us')), # microsecond
+        ])
 ```
 
 Use the ClickHouse Sink to write data to ClickHouse
 
 ```python
-chop.output(
-    "output_clickhouse",
-    metrics,
-    "metrics",
-    "admin",
-    "password",
-    database="bytewax",
-    port=8123,
-    ch_schema=CH_SCHEMA,
-    order_by=ORDER_BY,
-    pa_schema=PA_SCHEMA,
-    timeout=timedelta(seconds=1),
-    max_size=10,
-)
+op.output("output_clickhouse", tables, ClickhouseSink("metrics", "admin", "password", database="bytewax", port=8123, schema=CH_SCHEMA, order_by=ORDER_BY))
 ```
 
 ## Setting up the project

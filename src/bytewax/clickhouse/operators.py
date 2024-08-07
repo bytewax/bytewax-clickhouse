@@ -16,14 +16,15 @@ input = kop.input("kafka_inp", flow, brokers=[...], topics=[...])
 chop.output("ch-out", input, )
 ```
 """
+
 from datetime import timedelta
-from typing import Tuple, Any, List, Optional
+from typing import Tuple, List, Optional
 from typing_extensions import TypeAlias
 
 import bytewax.operators as op
 from bytewax.dataflow import Stream, operator
 
-from bytewax.connectors.clickhouse import ClickHouseSink, V
+from bytewax.clickhouse import ClickHouseSink, V
 
 import pyarrow as pa
 
@@ -31,16 +32,18 @@ import pyarrow as pa
 KeyedStream: TypeAlias = Stream[Tuple[str, V]]
 """A {py:obj}`~bytewax.dataflow.Stream` of `(key, value)` 2-tuples."""
 
+
 @operator
 def _to_sink(
-    step_id: str, up: KeyedStream[V], timeout: timedelta, max_size: int,
-    pa_schema: pa.Schema
+    step_id: str,
+    up: KeyedStream[V],
+    timeout: timedelta,
+    max_size: int,
+    pa_schema: pa.Schema,
 ) -> KeyedStream[List[V]]:
     """Convert records to PyArrow Table"""
 
-    def shim_mapper(
-        key__batch: Tuple, pa_schema
-    ) -> pa.Table:
+    def shim_mapper(key__batch: Tuple, pa_schema) -> pa.Table:
         key, batch = key__batch
         columns = list(zip(*batch))
         arrays = []
@@ -51,7 +54,9 @@ def _to_sink(
 
         return t
 
-    return op.collect().then(op.map, "map", shim_mapper)
+    return op.collect("batch", up, timeout=timeout, max_size=max_size).then(
+        op.map, "map", lambda x: shim_mapper(x, pa_schema)
+    )
 
 
 @operator
@@ -65,8 +70,10 @@ def output(
     port: int = 8123,
     database: Optional[str] = None,
     ch_schema: Optional[str] = None,
-    order_by: str = '',
-    pa_schema: Optional[pa.Schema] = None
+    order_by: str = "",
+    pa_schema: Optional[pa.Schema] = None,
+    timeout: Optional[timedelta] = 5,
+    max_size: Optional[int] = 50,
 ) -> None:
     """Produce to ClickHouse as an output sink.
 
@@ -109,10 +116,18 @@ def output(
 
     :arg pa_schema: Arrow schema.
 
+    :arg timeout: a timedelta of the amount of time to wait for
+        new data before writing
+
+    :arg batch_size: the number of items to wait before writing
+
     """
-    return _to_sink("to_sink", up).then(
-        op.output, "kafka_output", ClickHouseSink(table_name, username,
-                                                  password, host, port,
-                                                  database, ch_schema,
-                                                  order_by, pa_schema)
+    return _to_sink(
+        "to_sink", up, timeout=timeout, max_size=max_size, pa_schema=pa_schema
+    ).then(
+        op.output,
+        "kafka_output",
+        ClickHouseSink(
+            table_name, username, password, host, port, database, ch_schema, order_by
+        ),
     )

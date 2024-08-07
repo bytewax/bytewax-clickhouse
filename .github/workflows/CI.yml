@@ -35,7 +35,7 @@ jobs:
         run: |
           uv venv -p 3.12 venv
           . venv/bin/activate
-          uv pip sync --strict requirements/dev.ini
+          uv pip sync --strict requirements/dev.txt
       - name: Check pre-commit hooks
         shell: bash
         run: |
