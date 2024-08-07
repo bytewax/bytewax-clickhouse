@@ -2,7 +2,7 @@ name: clickhouse_connector
 services:
   clickhouse:
     image: 'clickhouse/clickhouse-server:${CHVER:-latest}'
-    environment: 
+    environment:
       CLICKHOUSE_DB: bytewax
       CLICKHOUSE_USER: admin
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
