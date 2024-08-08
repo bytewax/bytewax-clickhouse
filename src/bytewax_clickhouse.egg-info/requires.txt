@@ -1,3 +1,0 @@
-clickhouse-connect==0.7.16
-bytewax>=0.21
-pyarrow==16.1.0
