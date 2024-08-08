@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "Clickhouse sink connector for bytewax"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {file = "LICENSE.txt"}
+license = {file = "LICENSE.md"}
 keywords = ["bytewax", "streaming", "operator"]
 authors = [
   {name = "Bytewax, Inc.", email = "info@bytewax.io" }

@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  release:
+    types:
+    - published
   pull_request: {}
   merge_group:
   workflow_dispatch:
@@ -124,14 +127,14 @@ jobs:
 
   publish-to-pypi:
     name: Publish to PyPI
-    if: startsWith(github.ref, 'refs/tags/')
+    if: github.event_name == 'release' && github.event.action == 'published'
     needs:
     - build
     - test
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/bytewax-interval
+      url: https://pypi.org/p/bytewax-clickhouse
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:
@@ -144,3 +147,4 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/ # Remove when publishing to PyPI
+        skip-existing: true
