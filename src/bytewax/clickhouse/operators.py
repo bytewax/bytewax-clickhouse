@@ -106,13 +106,11 @@ def output(
         this will use the default database.
 
     :arg ch_schema: schema string of format
-                        ```column1 UInt32,
-                        column2 String,
-                        column3 Date```,
+                        ```column1 UInt32,\\n column2 String,\\n column3 Date```,
 
     :arg order_by: order by string that determines the sort of
         the table for deduplication. Should be of format:
-        `metric, ts`
+        `column1, column2`
 
     :arg pa_schema: Arrow schema.
 
