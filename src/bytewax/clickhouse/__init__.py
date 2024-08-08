@@ -1,10 +1,10 @@
-from typing import Optional, List, TypeVar
-from typing_extensions import override
 import logging
-from bytewax.outputs import StatelessSinkPartition, DynamicSink
-from pyarrow import concat_tables, Table
-from clickhouse_connect import get_client
+from typing import List, Optional, TypeVar
 
+from bytewax.outputs import DynamicSink, StatelessSinkPartition
+from clickhouse_connect import get_client
+from pyarrow import Table, concat_tables
+from typing_extensions import override
 
 K = TypeVar("K")
 """Type of key in Kafka message."""

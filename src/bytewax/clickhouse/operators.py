@@ -2,32 +2,32 @@
 
 It's suggested to import operators like this:
 
-```{testcode}
+```
 from bytewax.connectors.clickhouse import operators as chop
 ```
 
 And then you can use the operators like this:
 
-```{testcode}
+```
 from bytewax.dataflow import Dataflow
 
 flow = Dataflow("kafka-in-out")
 input = kop.input("kafka_inp", flow, brokers=[...], topics=[...])
-chop.output("ch-out", input, )
+chop.output(
+    "ch-out",
+    input,
+)
 ```
 """
 
 from datetime import timedelta
-from typing import Tuple, List, Optional
-from typing_extensions import TypeAlias
+from typing import List, Optional, Tuple
 
 import bytewax.operators as op
-from bytewax.dataflow import Stream, operator
-
-from bytewax.clickhouse import ClickHouseSink, V
-
 import pyarrow as pa
-
+from bytewax.clickhouse import ClickHouseSink, V
+from bytewax.dataflow import Stream, operator
+from typing_extensions import TypeAlias
 
 KeyedStream: TypeAlias = Stream[Tuple[str, V]]
 """A {py:obj}`~bytewax.dataflow.Stream` of `(key, value)` 2-tuples."""

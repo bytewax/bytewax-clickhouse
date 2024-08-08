@@ -71,6 +71,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
     "typing_extensions": ("https://typing-extensions.readthedocs.io/en/latest/", None),
+    "pyarrow": ("https://arrow.apache.org/docs/", None),
 }
 templates_path = ["_templates"]
 
@@ -220,8 +221,8 @@ autodoc2_output_dir = "api"
 # above directory.
 autodoc2_packages = [
     {
-        "path": "../src/bytewax/bytewax-clickhouse/__init__.py",
-        "module": "bytewax.bytewax-clickhouse",
+        "path": "../src/bytewax/clickhouse/",
+        "module": "bytewax.clickhouse",
     },
 ]
 # Controls the generation of those Markdown files. We have some
