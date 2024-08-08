@@ -73,7 +73,7 @@ test-py tests=pytests: _assert-venv
 
 # Test all code in the documentation; runs in CI
 test-doc: _assert-venv
-    cd docs/fixtures/ && sphinx-build -b doctest -E .. ../_build/
+    cd docs && sphinx-build -b doctest -E . _build/
 
 # Run all the checks that will be run in CI locally
 ci-pre: lint test-py test-doc
