@@ -41,7 +41,7 @@ def _to_sink(
     max_size: int,
     pa_schema: pa.Schema,
 ) -> KeyedStream[List[V]]:
-    """Convert records to PyArrow Table"""
+    """Convert records to PyArrow Table."""
 
     def shim_mapper(key__batch: Tuple, pa_schema) -> pa.Table:
         key, batch = key__batch
@@ -75,7 +75,7 @@ def output(
     timeout: Optional[timedelta] = 5,
     max_size: Optional[int] = 50,
 ) -> None:
-    """Produce to ClickHouse as an output sink.
+    r"""Produce to ClickHouse as an output sink.
 
     Uses Arrow format, must be arrow serializiable.
 
