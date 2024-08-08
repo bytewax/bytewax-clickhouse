@@ -39,14 +39,14 @@ op.inspect("metrics", metrics)
 chop.output(
     "output_clickhouse",
     metrics,
+    PA_SCHEMA,
     "metrics",
+    CH_SCHEMA,
     "admin",
     "password",
     database="bytewax",
     port=8123,
-    ch_schema=CH_SCHEMA,
     order_by=ORDER_BY,
-    pa_schema=PA_SCHEMA,
     timeout=timedelta(seconds=1),
     max_size=10,
 )

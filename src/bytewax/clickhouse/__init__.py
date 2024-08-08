@@ -29,11 +29,11 @@ Logging:
 """
 
 import logging
-from typing import List, Optional, TypeVar
+from typing import List, TypeVar
 
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
 from clickhouse_connect import get_client
-from pyarrow import Table, concat_tables
+from pyarrow import Table, concat_tables  # type: ignore
 from typing_extensions import override
 
 K = TypeVar("K")
@@ -107,12 +107,12 @@ class ClickHouseSink(DynamicSink):
     def __init__(
         self,
         table_name: str,
+        schema: str,
         username: str,
         password: str,
         host: str = "localhost",
         port: int = 8123,
-        database: Optional[str] = None,
-        schema: Optional[str] = None,
+        database: str = "default",
         order_by: str = "",
     ):
         """Initialize the ClickHouseSink.
@@ -128,7 +128,7 @@ class ClickHouseSink(DynamicSink):
             host (str, optional): Hostname of ClickHouse server. Default is "localhost".
             port (int, optional): Port number of the ClickHouse server. Default is 8123.
             database (Optional[str], optional): Name of the database in ClickHouse.
-                                    Defaults to None. If not provided, uses "default".
+                                    If not provided, uses "default".
             schema (Optional[str], optional): Schema definition for the table if needs
                                     to be created. Defaults to None.
             order_by (str, optional): Comma-separated list of columns to order by in the
@@ -147,9 +147,6 @@ class ClickHouseSink(DynamicSink):
         self.schema = schema
 
         # init client
-        if not self.database:
-            logger.warning("database not set, using 'default'")
-            self.database = "default"
         client = get_client(
             host=self.host,
             port=self.port,
@@ -191,7 +188,7 @@ class ClickHouseSink(DynamicSink):
             mergetree_type = client.command(mergetree_type_query)
             logger.info(f"MergeTree type of the table '{table_name}': {mergetree_type}")
 
-            if "ReplacingMergeTree" not in mergetree_type:
+            if "ReplacingMergeTree" not in str(mergetree_type):
                 logger.warning(
                     f"""Table '{table_name}' is not using ReplacingMergeTree.
                     Consider modifying the table to avoid performance degredation

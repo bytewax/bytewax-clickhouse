@@ -21,10 +21,10 @@ chop.output(
 """
 
 from datetime import timedelta
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 import bytewax.operators as op
-import pyarrow as pa
+import pyarrow as pa  # type: ignore
 from bytewax.clickhouse import ClickHouseSink, V
 from bytewax.dataflow import Stream, operator
 from typing_extensions import TypeAlias
@@ -43,7 +43,7 @@ def _to_sink(
 ) -> KeyedStream[List[V]]:
     """Convert records to PyArrow Table."""
 
-    def shim_mapper(key__batch: Tuple, pa_schema) -> pa.Table:
+    def shim_mapper(key__batch: Tuple, pa_schema: pa.Schema) -> pa.Table:
         key, batch = key__batch
         columns = list(zip(*batch))
         arrays = []
@@ -63,17 +63,17 @@ def _to_sink(
 def output(
     step_id: str,
     up: KeyedStream[V],
+    pa_schema: pa.Schema,
     table_name: str,
+    ch_schema: str,
     username: str,
     password: str,
     host: str = "localhost",
     port: int = 8123,
-    database: Optional[str] = None,
-    ch_schema: Optional[str] = None,
+    database: str = "default",
     order_by: str = "",
-    pa_schema: Optional[pa.Schema] = None,
-    timeout: Optional[timedelta] = 5,
-    max_size: Optional[int] = 50,
+    timeout: timedelta = timedelta(seconds=1),
+    max_size: int = 50,
 ) -> None:
     r"""Produce to ClickHouse as an output sink.
 
@@ -91,7 +91,12 @@ def output(
     :arg up: Stream of records. Key must be a `String`
         and value must be serializable into an arrow table.
 
+    :arg pa_schema: Arrow schema.
+
     :arg table_name: Table name for the writes.
+
+    :arg ch_schema: schema string of format
+                        ```column1 UInt32,\\n column2 String,\\n column3 Date```,
 
     :arg username: database username, user must have
         correct permissions.
@@ -105,19 +110,15 @@ def output(
     :arg database: optional database name. If omitted
         this will use the default database.
 
-    :arg ch_schema: schema string of format
-                        ```column1 UInt32,\\n column2 String,\\n column3 Date```,
-
     :arg order_by: order by string that determines the sort of
         the table for deduplication. Should be of format:
         `column1, column2`
 
-    :arg pa_schema: Arrow schema.
-
     :arg timeout: a timedelta of the amount of time to wait for
-        new data before writing
+        new data before writing. Defaults to 1 second.
 
     :arg batch_size: the number of items to wait before writing
+        defaults to 50.
 
     """
     return _to_sink(
@@ -126,6 +127,6 @@ def output(
         op.output,
         "kafka_output",
         ClickHouseSink(
-            table_name, username, password, host, port, database, ch_schema, order_by
+            table_name, ch_schema, username, password, host, port, database, order_by
         ),
     )

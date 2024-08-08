@@ -341,7 +341,7 @@ def _resolve_bytewax_type_aliases(
     return None
 
 
-def setup(app: Sphinx):
+def setup(app: Sphinx) -> None:
     """Install our custom Sphinx build hooks."""
     app.connect("missing-reference", _ignore_private)
     app.connect("missing-reference", _resolve_type_aliases)
