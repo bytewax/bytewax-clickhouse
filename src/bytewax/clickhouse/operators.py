@@ -11,7 +11,7 @@ And then you can use the operators like this:
 ```
 from bytewax.dataflow import Dataflow
 
-flow = Dataflow("kafka-in-out")
+flow = Dataflow("clickhouse-out")
 input = kop.input("kafka_inp", flow, brokers=[...], topics=[...])
 chop.output(
     "ch-out",
