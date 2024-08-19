@@ -65,15 +65,11 @@ bytewax==0.21.0 \
     --hash=sha256:ece6452ce1c609915447402214714d7392cb7f864ea968a584b649ab8007466d \
     --hash=sha256:f551b2eef7b354b439fd13f62349528c1eff9e59ffbfdf2a7d4fe0141b4ae6ca \
     --hash=sha256:fffebf6ee9ed44f701d16156ce386d2ed2b7d3fe9cf3b381183c49e37ab8639b
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   bytewax-clickhouse (pyproject.toml)
-    #   bytewax-clickhouse
+    # via bytewax-clickhouse
 certifi==2024.7.4 \
     --hash=sha256:5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b \
     --hash=sha256:c198e21b1289c2ab85ee4e67bb4b4ef3ead0892059901a8d5b622f24a1101e90
     # via
-    #   -r requirements/lib-py3.12.txt
     #   clickhouse-connect
     #   requests
 cfgv==3.4.0 \
@@ -243,10 +239,7 @@ clickhouse-connect==0.7.16 \
     --hash=sha256:f8f7260073b6ee63e19d442ebb6954bc7741a5ce4ed563eb8074c8c6a0158eca \
     --hash=sha256:faadaf206ea7753782db017daedbf592e4edc7c71cb985aad787eb9dc516bf21 \
     --hash=sha256:fddc99322054f5d3df8715ab3724bd36ac636f8ceaed4f5f3f60d377abd22d22
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   bytewax-clickhouse (pyproject.toml)
-    #   bytewax-clickhouse
+    # via bytewax-clickhouse
 colorama==0.4.6 \
     --hash=sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44 \
     --hash=sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6
@@ -350,9 +343,7 @@ lz4==4.3.3 \
     --hash=sha256:f1d18718f9d78182c6b60f568c9a9cec8a7204d7cb6fad4e511a2ef279e4cb05 \
     --hash=sha256:f4c7bf687303ca47d69f9f0133274958fd672efaa33fb5bcde467862d6c621f0 \
     --hash=sha256:f76176492ff082657ada0d0f10c794b6da5800249ef1692b35cf49b1e93e8ef7
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
 markdown-it-py==3.0.0 \
     --hash=sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1 \
     --hash=sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb
@@ -520,9 +511,7 @@ numpy==2.0.1 \
     --hash=sha256:ec87f5f8aca726117a1c9b7083e7656a9d0d606eec7299cc067bb83d26f16e0c \
     --hash=sha256:f1659887361a7151f89e79b276ed8dff3d75877df906328f14d8bb40bb4f5101 \
     --hash=sha256:f9cf5ea551aec449206954b075db819f52adc1638d46a6738253a712d553c7b4
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   pyarrow
+    # via pyarrow
 orjson==3.10.6 \
     --hash=sha256:03c95484d53ed8e479cade8628c9cea00fd9d67f5554764a1110e0d5aa2de96e \
     --hash=sha256:05ac3d3916023745aa3b3b388e91b9166be1ca02b7c7e41045da6d12985685f0 \
@@ -606,9 +595,7 @@ pre-commit==3.8.0 \
 prometheus-client==0.20.0 \
     --hash=sha256:287629d00b147a32dcb2be0b9df905da599b2d82f80377083ec8463309a4bb89 \
     --hash=sha256:cde524a85bce83ca359cc837f28b8c0db5cac7aa653a588fd7e84ba061c329e7
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   bytewax
+    # via bytewax
 prompt-toolkit==3.0.47 \
     --hash=sha256:0d7bfa67001d5e39d02c224b663abc33687405033a8c422d0d675a5a13361d10 \
     --hash=sha256:1e1b29cb58080b1e69f207c893a1a7bf16d127a5c30c9d17a25a5d77792e5360
@@ -658,10 +645,7 @@ pyarrow==16.1.0 \
     --hash=sha256:f68f409e7b283c085f2da014f9ef81e885d90dcd733bd648cfba3ef265961848 \
     --hash=sha256:fbef391b63f708e103df99fbaa3acf9f671d77a183a07546ba2f2c297b361e83 \
     --hash=sha256:febde33305f1498f6df85e8020bca496d0e9ebf2093bab9e0f65e2b4ae2b3444
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   bytewax-clickhouse (pyproject.toml)
-    #   bytewax-clickhouse
+    # via bytewax-clickhouse
 pydata-sphinx-theme==0.15.4 \
     --hash=sha256:2136ad0e9500d0949f96167e63f3e298620040aea8f9c74621959eda5d4cf8e6 \
     --hash=sha256:7762ec0ac59df3acecf49fd2f889e1b4565dbce8b88b2e29ee06fdd90645a06d
@@ -681,9 +665,7 @@ pytest==8.3.2 \
 pytz==2024.1 \
     --hash=sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812 \
     --hash=sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
 pyyaml==6.0.2 \
     --hash=sha256:01179a4a8559ab5de078078f37e5c1a30d76bb88519906844fd7bdea1b7729ff \
     --hash=sha256:0833f8694549e586547b576dcfaba4a6b55b9e96098b36cdc7ebefe667dfed48 \
@@ -747,25 +729,25 @@ requests==2.32.3 \
     # via
     #   -r requirements/doctest.in
     #   sphinx
-ruff==0.5.6 \
-    --hash=sha256:07c9e3c2a8e1fe377dd460371c3462671a728c981c3205a5217291422209f642 \
-    --hash=sha256:111a99cdb02f69ddb2571e2756e017a1496c2c3a2aeefe7b988ddab38b416d36 \
-    --hash=sha256:1f77c1c3aa0669fb230b06fb24ffa3e879391a3ba3f15e3d633a752da5a3e670 \
-    --hash=sha256:4d394940f61f7720ad371ddedf14722ee1d6250fd8d020f5ea5a86e7be217daf \
-    --hash=sha256:563a7ae61ad284187d3071d9041c08019975693ff655438d8d4be26e492760bd \
-    --hash=sha256:57c6c0dd997b31b536bff49b9eee5ed3194d60605a4427f735eeb1f9c1b8d264 \
-    --hash=sha256:80521b88d26a45e871f31e4b88938fd87db7011bb961d8afd2664982dfc3641a \
-    --hash=sha256:94fe60869bfbf0521e04fd62b74cbca21cbc5beb67cbb75ab33fe8c174f54414 \
-    --hash=sha256:a0ef5930799a05522985b9cec8290b185952f3fcd86c1772c3bdbd732667fdcd \
-    --hash=sha256:b652dc14f6ef5d1552821e006f747802cc32d98d5509349e168f6bf0ee9f8f42 \
-    --hash=sha256:c476acb43c3c51e3c614a2e878ee1589655fa02dab19fe2db0423a06d6a5b1b6 \
-    --hash=sha256:c94e084ba3eaa80c2172918c2ca2eb2230c3f15925f4ed8b6297260c6ef179ad \
-    --hash=sha256:d7fe7dccb1a89dc66785d7aa0ac283b2269712d8ed19c63af908fdccca5ccc1a \
-    --hash=sha256:d9bc8f328a9f1309ae80e4d392836e7dbc77303b38ed4a7112699e63d3b066ab \
-    --hash=sha256:e2ff8003f5252fd68425fd53d27c1f08b201d7ed714bb31a55c9ac1d4c13e2eb \
-    --hash=sha256:e395daba77a79f6dc0d07311f94cc0560375ca20c06f354c7c99af3bf4560c5d \
-    --hash=sha256:e6a584c1de6f8591c2570e171cc7ce482bb983d49c70ddf014393cd39e9dfaed \
-    --hash=sha256:f908148c93c02873210a52cad75a6eda856b2cbb72250370ce3afef6fb99b1ed
+ruff==0.6.1 \
+    --hash=sha256:2c7477c3b9da822e2db0b4e0b59e61b8a23e87886e727b327e7dcaf06213c5cf \
+    --hash=sha256:392688dbb50fecf1bf7126731c90c11a9df1c3a4cdc3f481b53e851da5634fa5 \
+    --hash=sha256:3a0af7ab3f86e3dc9f157a928e08e26c4b40707d0612b01cd577cc84b8905cc9 \
+    --hash=sha256:3bc81074971b0ffad1bd0c52284b22411f02a11a012082a76ac6da153536e014 \
+    --hash=sha256:45efaae53b360c81043e311cdec8a7696420b3d3e8935202c2846e7a97d4edae \
+    --hash=sha256:5278d3e095ccc8c30430bcc9bc550f778790acc211865520f3041910a28d0024 \
+    --hash=sha256:99d7ae0df47c62729d58765c593ea54c2546d5de213f2af2a19442d50a10cec9 \
+    --hash=sha256:9eb18dfd7b613eec000e3738b3f0e4398bf0153cb80bfa3e351b3c1c2f6d7b15 \
+    --hash=sha256:9fb4c4e8b83f19c9477a8745e56d2eeef07a7ff50b68a6998f7d9e2e3887bdc4 \
+    --hash=sha256:af3ffd8c6563acb8848d33cd19a69b9bfe943667f0419ca083f8ebe4224a3436 \
+    --hash=sha256:b2e0dd11e2ae553ee5c92a81731d88a9883af8db7408db47fc81887c1f8b672e \
+    --hash=sha256:b4bb7de6a24169dc023f992718a9417380301b0c2da0fe85919f47264fb8add9 \
+    --hash=sha256:bc60c7d71b732c8fa73cf995efc0c836a2fd8b9810e115be8babb24ae87e0850 \
+    --hash=sha256:c2ebfc8f51ef4aca05dad4552bbcf6fe8d1f75b2f6af546cc47cc1c1ca916b5b \
+    --hash=sha256:c62bc04c6723a81e25e71715aa59489f15034d69bf641df88cb38bdc32fd1dbb \
+    --hash=sha256:d812615525a34ecfc07fd93f906ef5b93656be01dfae9a819e31caa6cfe758a1 \
+    --hash=sha256:faaa4060f4064c3b7aaaa27328080c932fa142786f8142aff095b42b6a2eb631 \
+    --hash=sha256:fe6d5f65d6f276ee7a0fc50a0cecaccb362d30ef98a110f99cac1c7872df2f18
     # via -r requirements/dev.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -859,7 +841,6 @@ typing-extensions==4.12.2 \
     --hash=sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d \
     --hash=sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8
     # via
-    #   -r requirements/lib-py3.12.txt
     #   bytewax
     #   mypy
     #   pydata-sphinx-theme
@@ -868,7 +849,6 @@ urllib3==2.2.2 \
     --hash=sha256:a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472 \
     --hash=sha256:dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168
     # via
-    #   -r requirements/lib-py3.12.txt
     #   clickhouse-connect
     #   requests
 uvicorn==0.30.5 \
@@ -1148,6 +1128,4 @@ zstandard==0.23.0 \
     --hash=sha256:fd30d9c67d13d891f2360b2a120186729c111238ac63b43dbd37a5a40670b8ca \
     --hash=sha256:fd7699e8fd9969f455ef2926221e0233f81a2542921471382e77a9e2f2b57f4b \
     --hash=sha256:fe3b385d996ee0822fd46528d9f0443b880d4d05528fd26a9119a54ec3f91c69
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
