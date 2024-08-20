@@ -66,13 +66,20 @@ which case you may not download or use the Software.
     any open source license agreement; or (f) deploy your Application in
     a manner that allows the end user to directly access, download or
     use the Software other than as incorporated within your Application.
-    You are not required to provide any ideas, feedback or suggestions
-    regarding the Software (collectively, "Feedback") to Bytewax. To the
-    extent you do provide any Feedback to Bytewax, you acknowledge that
-    Bytewax may freely use, reproduce, modify, distribute, make, have
-    made, sell, offer for sale, import and otherwise exploit in any
-    manner such Feedback without payment of any royalties or other
-    consideration to you.
+    acknowledge that certain components of the Software may be covered by
+    open source software licenses. To the extent the terms of such open
+    source licenses prohibit any of the restrictions in this License
+    Agreement with respect to the applicable open source software, such
+    restrictions do not apply. To the extent the terms of such open
+    source licenses require Bytewax to make an offer to provide source
+    code or related information in connection with the open source
+    software, such offer is hereby made. You are not required to provide
+    any ideas, feedback or suggestions regarding the Software
+    (collectively, "Feedback") to Bytewax. To the extent you do provide
+    any Feedback to Bytewax, you acknowledge that Bytewax may freely use,
+    reproduce, modify, distribute, make, have made, sell, offer for sale,
+    import and otherwise exploit in any manner such Feedback without
+    payment of any royalties or other consideration to you.
 
 5.  As part of its operation, the Software may collect and send to
     Bytewax data regarding the system on which the Software is installed
