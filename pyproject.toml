@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "clickhouse-connect==0.7.16",
+  "clickhouse-connect==0.7.19",
   "bytewax>=0.21",
   "pyarrow==16.1.0"
 ]
