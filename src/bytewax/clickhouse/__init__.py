@@ -29,12 +29,25 @@ Logging:
 """
 
 import logging
+import os
+import sys
 from typing import List, TypeVar
 
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
 from clickhouse_connect import get_client
 from pyarrow import Table, concat_tables  # type: ignore
 from typing_extensions import override
+
+if "BYTEWAX_LICENSE" not in os.environ:
+    msg = (
+        "`bytewax-interval` is commercially licensed "
+        "with publicly available source code.\n"
+        "You are welcome to prototype using this module for free, "
+        "but any use on business data requires a paid license.\n"
+        "See https://modules.bytewax.io/ for a license. "
+        "Set the env var `BYTEWAX_LICENSE=1` to suppress this message."
+    )
+    print(msg, file=sys.stderr)
 
 K = TypeVar("K")
 """Type of key in Kafka message."""
