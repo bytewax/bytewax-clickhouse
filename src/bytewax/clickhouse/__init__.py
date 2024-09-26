@@ -56,7 +56,6 @@ V = TypeVar("V")
 """Type of value in a Kafka message."""
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
