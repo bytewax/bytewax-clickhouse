@@ -7,6 +7,10 @@ import pyarrow as pa
 
 from bytewax.clickhouse import operators as chop
 
+import logging
+
+logger = logging.getLogger("bytewax.clickhouse").setLevel(logging.INFO)
+
 CH_SCHEMA = """
         metric String,
         value Float64,
