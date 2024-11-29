@@ -31,13 +31,10 @@ bytewax==0.21.0 \
     --hash=sha256:ece6452ce1c609915447402214714d7392cb7f864ea968a584b649ab8007466d \
     --hash=sha256:f551b2eef7b354b439fd13f62349528c1eff9e59ffbfdf2a7d4fe0141b4ae6ca \
     --hash=sha256:fffebf6ee9ed44f701d16156ce386d2ed2b7d3fe9cf3b381183c49e37ab8639b
-    # via -r requirements/lib-py3.12.txt
 certifi==2024.7.4 \
     --hash=sha256:5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b \
     --hash=sha256:c198e21b1289c2ab85ee4e67bb4b4ef3ead0892059901a8d5b622f24a1101e90
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
 clickhouse-connect==0.7.19 \
     --hash=sha256:03953942cc073078b40619a735ebeaed9bf98efc71c6f43ce92a38540b1308ce \
     --hash=sha256:04cfb1dae8fb93117211cfe4e04412b075e47580391f9eee9a77032d8e7d46f4 \
@@ -105,11 +102,9 @@ clickhouse-connect==0.7.19 \
     --hash=sha256:f08e33b8cc2dc1873edc5ee4088d4fc3c0dbb69b00e057547bcdc7e9680b43e5 \
     --hash=sha256:fd225af60478c068cde0952e8df8f731f24c828b75cc1a2e61c21057ff546ecd \
     --hash=sha256:ff6469822fe8d83f272ffbb3fb99dcc614e20b1d5cddd559505029052eff36e7
-    # via -r requirements/lib-py3.12.txt
 colorama==0.4.6 \
     --hash=sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44 \
     --hash=sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6
-    # via -r requirements/build.in
 iniconfig==2.0.0 \
     --hash=sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3 \
     --hash=sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374
@@ -151,9 +146,7 @@ lz4==4.3.3 \
     --hash=sha256:f1d18718f9d78182c6b60f568c9a9cec8a7204d7cb6fad4e511a2ef279e4cb05 \
     --hash=sha256:f4c7bf687303ca47d69f9f0133274958fd672efaa33fb5bcde467862d6c621f0 \
     --hash=sha256:f76176492ff082657ada0d0f10c794b6da5800249ef1692b35cf49b1e93e8ef7
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
 numpy==2.0.1 \
     --hash=sha256:08458fbf403bff5e2b45f08eda195d4b0c9b35682311da5a5a0a0925b11b9bd8 \
     --hash=sha256:0fbb536eac80e27a2793ffd787895242b7f18ef792563d742c2d673bfcb75134 \
@@ -200,9 +193,7 @@ numpy==2.0.1 \
     --hash=sha256:ec87f5f8aca726117a1c9b7083e7656a9d0d606eec7299cc067bb83d26f16e0c \
     --hash=sha256:f1659887361a7151f89e79b276ed8dff3d75877df906328f14d8bb40bb4f5101 \
     --hash=sha256:f9cf5ea551aec449206954b075db819f52adc1638d46a6738253a712d553c7b4
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   pyarrow
+    # via pyarrow
 packaging==24.1 \
     --hash=sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002 \
     --hash=sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124
@@ -214,9 +205,7 @@ pluggy==1.5.0 \
 prometheus-client==0.20.0 \
     --hash=sha256:287629d00b147a32dcb2be0b9df905da599b2d82f80377083ec8463309a4bb89 \
     --hash=sha256:cde524a85bce83ca359cc837f28b8c0db5cac7aa653a588fd7e84ba061c329e7
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   bytewax
+    # via bytewax
 pyarrow==16.1.0 \
     --hash=sha256:06ebccb6f8cb7357de85f60d5da50e83507954af617d7b05f48af1621d331c9a \
     --hash=sha256:0d07de3ee730647a600037bc1d7b7994067ed64d0eba797ac74b2bc77384f4c2 \
@@ -254,29 +243,21 @@ pyarrow==16.1.0 \
     --hash=sha256:f68f409e7b283c085f2da014f9ef81e885d90dcd733bd648cfba3ef265961848 \
     --hash=sha256:fbef391b63f708e103df99fbaa3acf9f671d77a183a07546ba2f2c297b361e83 \
     --hash=sha256:febde33305f1498f6df85e8020bca496d0e9ebf2093bab9e0f65e2b4ae2b3444
-    # via -r requirements/lib-py3.12.txt
 pytest==8.3.2 \
     --hash=sha256:4ba08f9ae7dcf84ded419494d229b48d0903ea6407b030eaec46df5e6a73bba5 \
     --hash=sha256:c132345d12ce551242c87269de812483f5bcc87cdbb4722e48487ba194f9fdce
-    # via -r requirements/build.in
 pytz==2024.1 \
     --hash=sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812 \
     --hash=sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
 typing-extensions==4.12.2 \
     --hash=sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d \
     --hash=sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   bytewax
+    # via bytewax
 urllib3==2.2.2 \
     --hash=sha256:a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472 \
     --hash=sha256:dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
 zstandard==0.23.0 \
     --hash=sha256:034b88913ecc1b097f528e42b539453fa82c3557e414b3de9d5632c80439a473 \
     --hash=sha256:0a7f0804bb3799414af278e9ad51be25edf67f78f916e08afdb983e74161b916 \
@@ -375,6 +356,4 @@ zstandard==0.23.0 \
     --hash=sha256:fd30d9c67d13d891f2360b2a120186729c111238ac63b43dbd37a5a40670b8ca \
     --hash=sha256:fd7699e8fd9969f455ef2926221e0233f81a2542921471382e77a9e2f2b57f4b \
     --hash=sha256:fe3b385d996ee0822fd46528d9f0443b880d4d05528fd26a9119a54ec3f91c69
-    # via
-    #   -r requirements/lib-py3.12.txt
-    #   clickhouse-connect
+    # via clickhouse-connect
